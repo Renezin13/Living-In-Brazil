@@ -3,7 +3,6 @@ import PIL
 from django.contrib.auth.models import User
 
 class tb_usuario_fisico(models.Model):
-    fis_user = models.OneToOneField(User, on_delete=models.CASCADE)
     fis_id = models.AutoField(primary_key=True)
     fis_foto = models.ImageField(upload_to='imgs_fis/', blank = True)
     fis_idade = models.IntegerField()
@@ -51,6 +50,12 @@ class tb_avaliacoes(models.Model):
     ava_id = models.AutoField(primary_key=True)
     ava_avaliacao = models.FloatField()
     ava_comentario = models.CharField(max_length=512)
-    ava_fis_id = models.ForeignKey(tb_usuario_fisico, on_delete=models.CASCADE,)
+    ava_fis_id = models.ForeignKey(tb_usuario_fisico, on_delete=models.CASCADE)
     ava_nota = models.IntegerField()
     ava_pon_id = models.ForeignKey(tb_pontosTuristicos, on_delete=models.CASCADE)
+
+class tb_galeria_avaliacao(models.Model):
+    gal_id = models.AutoField(primary_key=True)
+    gal_descricao = models.CharField(max_length=45)
+    gal_foto = models.ImageField(upload_to='imgs_pon/', blank = True)
+    gal_ava_id = models.ForeignKey(tb_avaliacoes, on_delete=models.CASCADE)

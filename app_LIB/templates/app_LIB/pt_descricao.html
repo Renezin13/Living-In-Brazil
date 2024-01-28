@@ -18,15 +18,16 @@
 
             <!-- Navigation-->
 
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand navbar shadow" style="height: 90px;">
                 <div class="container px-5">
+                    <img src="../../static/app_LIB/imgs/living in brazil logo.png" alt="Logo" width="60" height="60" class="d-inline-block align-text-top" style="margin-right: 15px;">
                     <a class="navbar-brand" href="{% url 'home' %}">Living in Brazil</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Inicio</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'pontos_turisticos' %}">Pontos turisticos</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}" style="background-color: grey; border-radius: 10px; margin-left: 10px;">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}" style="background-color: rgb(124, 207, 255); border-radius: 10px; margin-left: 10px;">Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -44,25 +45,115 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row gx-5">
-                        {% if ponto.pon_foto != '' %}
-                                    <div class="col-12" style="margin-bottom: 80px;"><img class="img-fluid rounded-3 mb-3" src="{{ponto.pon_foto.url}}" alt="..." style="width: 1400px; height: 700px;"/></div>
-                                {% else %}
-                                    <div class="col-12" style="margin-bottom: 80px;"><img class="img-fluid rounded-3 mb-3" src="../../../imgs/imagem de erro.jpg" alt="..." style="width: 600px; height: 400px;"/></div>
-                        {% endif %}
-                            {% for imagem in galeria %}
-                                    <div class="col-lg-6">
-                                        <img class="img-fluid rounded-3 mb-5" src="{{imagem.gap_foto.url}}" alt="..." style="width: 600px; height: 400px;"/>
-                                    </div>
-                            {% endfor %}
-                    </div>
-                    <div class="row gx-5 justify-content-flexstart align-items-center">
-                        <div class="col-lg-6">
-                            <div class="text-light-emphasis mb-5" s>
-                                <p class="lead fw-normal text-muted" style="text-align: start;">Cidade: {{endereco.end_cidade}} <br> Bairro: {{endereco.end_bairro}} <br> Rua: {{endereco.end_rua}} <br> Numero: {{endereco.end_numero}} <br> Latitude: {{endereco.pon_latitude}} <br> Longitude: {{endereco.pon_longitude}}</p>
+                    {% if galeria|length == 0 %}
+                        <div class="row gx-6">
+                            <div class="col">
+                                <img src="{{ponto.pon_foto.url}}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
                             </div>
                         </div>
+                    {% elif galeria|length == 1 %}
+                        <div class="row gx-6">
+                            <div class="col-6">
+                                <img src="{{ponto.pon_foto.url}}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="col-6">
+                                <img src="{{ galeria.0.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                        </div>
+                    {% elif galeria|length == 2 %}
+                        <div class="row gx-6">
+                            <div class="col-6">
+                                <img src="{{ponto.pon_foto.url}}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="col-3" style="display: flex; justify-content: space-between; flex-direction: column; align-items: center;"> 
+                                <img src="{{ galeria.0.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="col-3" style="display: flex; justify-content: space-between; flex-direction: column; align-items: center;"> 
+                                <img src="{{ galeria.1.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                        </div>
+                    {% elif galeria|length == 3 %}
+                        <div class="row gx-6">
+                            <div class="col-6">
+                                <img src="{{ponto.pon_foto.url}}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="col-3" style="display: flex; justify-content: space-between; flex-direction: column; align-items: center;"> 
+                                <img src="{{ galeria.0.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                                <img src="{{ galeria.1.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="col-3" style="display: flex; justify-content: space-between; flex-direction: column; align-items: center;"> 
+                                <img src="{{ galeria.2.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                        </div>
+                    {% elif galeria|length == 4 %}
+                        <div class="row gx-6">
+                            <div class="col-6">
+                                <img src="{{ponto.pon_foto.url}}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="col-3" style="display: flex; justify-content: space-between; flex-direction: column; align-items: center;"> 
+                                <img src="{{ galeria.0.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                                <img src="{{ galeria.1.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="col-3" style="display: flex; justify-content: space-between; flex-direction: column; align-items: center;"> 
+                                <img src="{{ galeria.2.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                                <img src="{{ galeria.3.gap_foto.url }}" class="img-fluid img-thumbnail" alt="..." style="width: 100%; height: 100%;">
+                            </div>
+                        </div>
+                    {% endif %}
+                    <br>
+                    <div class="row gx-5 justify-content-between align-items-center">
+                        <div class="col-lg-6">
+                            <div class="text-light-emphasis mb-5">
+                                <p class="lead fw-normal text-muted" style="text-align: start;">
+                                    Cidade: {{endereco.end_cidade}} <br>
+                                    Bairro: {{endereco.end_bairro}} <br>
+                                    Rua: {{endereco.end_rua}} <br>
+                                    Numero: {{endereco.end_numero}}
+                                </p>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-6 d-flex justify-content-end align-items-center">
+                            <h4 class="fw-bolder">
+                                Média de Notas:
+                                {% if media_notas %}
+                                    {% for nota in "x"|ljust:media_notas %}
+                                        <i class="bi bi-star-fill"></i>
+                                    {% endfor %}
+                                {% else %}
+                                    Sem Avaliações
+                                {% endif %}
+                            </h4>
+                        </div>
                     </div>
+                    
+                    <div class="row gx-5">
+                        {% for ava in avaliacao %}
+                            <div class="col-lg-6">
+                                <div class="position-relative mb-5">
+                                    <div class="container" style="width: 600px; height: 200px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <img src="{{ ava.ava_fis_id.fis_foto.url }}" alt="..." style="width: 64px; height: 64x; border-radius: 100%; margin-left: 0px ;padding: 0;">
+                                            </div>
+                                            <div class="col-10">
+                                                <h4 class="fw-bolder">
+                                                    {% for nota in "x"|ljust:ava.ava_nota %}
+                                                        <i class="bi bi-star-fill"></i>
+                                                    {% endfor %}
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="row-4">
+                                            <p class="lead fw-normal text-muted" style="margin-top: 10px; color: black;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint deserunt nihil, vitae, laboriosam sed consequuntur veniam blanditiis reiciendis eos fugiat eveniet, unde perspiciatis eum assumenda obcaecati cupiditate nulla vero expedita.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Aqui -->
+
                 </div>
             </section>
         </main>
